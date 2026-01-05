@@ -1,0 +1,42 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Mørk baggrund som en Stout */
+    color: #f0f0f0; /* Lyst skum farve */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #d4af37; /* Guld farve */
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+main {
+    margin-top: 3rem;
+    background-color: #1e1e1e;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    opacity: 0.5;
+}
