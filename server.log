@@ -1,102 +1,128 @@
 Server kører på http://localhost:8080
-2026-01-05T21:40:47.948Z - GET /index.html
-2026-01-05T21:40:48.534Z - GET /style.css
-2026-01-05T21:40:48.536Z - GET /images/guinness%20guide.png
-2026-01-05T21:40:50.215Z - GET /index.html
-2026-01-05T21:40:50.234Z - GET /style.css
-2026-01-05T21:40:50.237Z - GET /images/guinness%20guide.png
-2026-01-05T21:40:51.060Z - GET /reviews.html
-2026-01-05T21:40:51.185Z - GET /style.css
-2026-01-05T21:40:51.186Z - GET /images/guinness%20guide.png
-2026-01-05T21:40:51.189Z - GET /app.js
-2026-01-05T21:40:51.236Z - GET /api/reviews
-2026-01-05T21:40:51.382Z - GET /uploads/1767648016637-46531754.png
-2026-01-05T21:41:04.460Z - PUT /api/reviews/1767648016642
-2026-01-05T21:41:04.476Z - GET /api/reviews
-2026-01-05T21:41:08.743Z - DELETE /api/reviews/1767648016642
-2026-01-05T21:41:08.753Z - GET /api/reviews
-2026-01-05T21:42:34.049Z - POST /api/reviews
-2026-01-05T21:42:34.062Z - GET /api/reviews
-2026-01-05T21:42:34.086Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T21:43:35.047Z - GET /reviews.html
-2026-01-05T21:43:35.097Z - GET /style.css
-2026-01-05T21:43:35.097Z - GET /app.js
-2026-01-05T21:43:35.099Z - GET /images/guinness%20guide.png
-2026-01-05T21:43:35.159Z - GET /api/reviews
-2026-01-05T21:43:35.224Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T21:46:45.535Z - GET /reviews.html
-2026-01-05T21:46:45.571Z - GET /style.css
-2026-01-05T21:46:45.574Z - GET /images/guinness%20guide.png
-2026-01-05T21:46:45.575Z - GET /app.js
-2026-01-05T21:46:45.592Z - GET /api/reviews
-2026-01-05T21:46:45.634Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T21:49:54.417Z - GET /reviews.html
-2026-01-05T21:49:54.490Z - GET /style.css
-2026-01-05T21:49:54.491Z - GET /images/guinness%20guide.png
-2026-01-05T21:49:54.495Z - GET /app.js
-2026-01-05T21:49:54.572Z - GET /api/reviews
-2026-01-05T21:49:54.598Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T21:51:17.770Z - GET /reviews.html
-2026-01-05T21:51:17.794Z - GET /app.js
-2026-01-05T21:51:17.795Z - GET /style.css
-2026-01-05T21:51:17.801Z - GET /images/guinness%20guide.png
-2026-01-05T21:51:17.825Z - GET /api/reviews
-2026-01-05T21:51:17.875Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T21:52:11.213Z - GET /reviews.html
-2026-01-05T21:52:11.248Z - GET /style.css
-2026-01-05T21:52:11.253Z - GET /app.js
-2026-01-05T21:52:11.254Z - GET /images/guinness%20guide.png
-2026-01-05T21:52:11.266Z - GET /api/reviews
-2026-01-05T21:52:11.303Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T21:52:37.007Z - POST /api/reviews
-2026-01-05T21:52:37.031Z - GET /api/reviews
-2026-01-05T21:52:37.057Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T21:59:08.724Z - GET /reviews.html
-2026-01-05T21:59:08.779Z - GET /style.css
-2026-01-05T21:59:08.780Z - GET /app.js
-2026-01-05T21:59:08.784Z - GET /images/guinness%20guide.png
-2026-01-05T21:59:08.804Z - GET /api/reviews
-2026-01-05T21:59:08.859Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T21:59:08.860Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T22:00:16.638Z - GET /reviews.html
-2026-01-05T22:00:16.687Z - GET /style.css
-2026-01-05T22:00:16.693Z - GET /app.js
-2026-01-05T22:00:16.694Z - GET /images/guinness%20guide.png
-2026-01-05T22:00:16.718Z - GET /api/reviews
-2026-01-05T22:00:16.755Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T22:00:16.756Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T22:01:19.730Z - GET /reviews.html
-2026-01-05T22:01:19.769Z - GET /style.css
-2026-01-05T22:01:19.770Z - GET /app.js
-2026-01-05T22:01:19.772Z - GET /images/guinness%20guide.png
-2026-01-05T22:01:19.786Z - GET /api/reviews
-2026-01-05T22:01:19.830Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T22:01:19.831Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T22:01:21.113Z - GET /reviews.html
-2026-01-05T22:01:21.129Z - GET /style.css
-2026-01-05T22:01:21.133Z - GET /images/guinness%20guide.png
-2026-01-05T22:01:21.134Z - GET /app.js
-2026-01-05T22:01:21.144Z - GET /api/reviews
-2026-01-05T22:01:21.183Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T22:01:21.183Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T22:02:50.969Z - GET /reviews.html
-2026-01-05T22:02:50.998Z - GET /style.css
-2026-01-05T22:02:51.000Z - GET /app.js
-2026-01-05T22:02:51.002Z - GET /images/guinness%20guide.png
-2026-01-05T22:02:51.019Z - GET /api/reviews
-2026-01-05T22:02:51.050Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T22:02:51.050Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T22:04:32.253Z - GET /reviews.html
-2026-01-05T22:04:32.290Z - GET /style.css
-2026-01-05T22:04:32.291Z - GET /app.js
-2026-01-05T22:04:32.292Z - GET /images/guinness%20guide.png
-2026-01-05T22:04:32.306Z - GET /api/reviews
-2026-01-05T22:04:32.347Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T22:04:32.347Z - GET /uploads/1767649354055-703671717.png
-2026-01-05T22:05:45.390Z - GET /reviews.html
-2026-01-05T22:05:45.436Z - GET /style.css
-2026-01-05T22:05:45.438Z - GET /app.js
-2026-01-05T22:05:45.440Z - GET /images/guinness%20guide.png
-2026-01-05T22:05:45.468Z - GET /api/reviews
-2026-01-05T22:05:45.510Z - GET /uploads/1767649957011-548417236.png
-2026-01-05T22:05:45.511Z - GET /uploads/1767649354055-703671717.png
+2026-01-05T22:32:00.785Z - GET /reviews.html
+2026-01-05T22:32:00.875Z - GET /style.css
+2026-01-05T22:32:00.876Z - GET /app.js
+2026-01-05T22:32:00.879Z - GET /images/guinness%20guide.png
+2026-01-05T22:32:00.930Z - GET /api/reviews
+Fejl ved hentning af anmeldelser fra Firestore: Error: 5 NOT_FOUND: 
+    at callErrorFromStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/Users/andersrask/Documents/Guinness Guide/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/Users/andersrask/Documents/Guinness Guide/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at Query._getResponse (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/reference/query.js:784:32)
+    at Query._get (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/reference/query.js:777:35)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/reference/query.js:745:43
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:110:30
+    at NoopContextManager.with (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/context/NoopContextManager.js:25:19)
+    at ContextAPI.with (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/api/context.js:60:46)
+    at NoopTracer.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/trace/NoopTracer.js:65:31)
+    at ProxyTracer.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/trace/ProxyTracer.js:36:24)
+    at EnabledTraceUtil.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:102:28) {
+  code: 5,
+  details: '',
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-01-05T22:32:22.295Z - POST /api/reviews
+Fejl ved gemning af anmeldelse til Firestore: Error: 5 NOT_FOUND: 
+    at callErrorFromStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client.js:193:76)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:367:141)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client.js:161:32)
+    at ServiceClientImpl.<anonymous> (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at repeat (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/retries.js:82:25)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/retries.js:125:13
+    at OngoingCallPromise.call (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/call.js:67:27)
+    at NormalApiCaller.call (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/normalApiCaller.js:34:19)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/createApiCall.js:112:30
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Caused by: Error
+    at _firestore._traceUtil.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/write-batch.js:438:27)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:110:30
+    at NoopContextManager.with (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/context/NoopContextManager.js:25:19)
+    at ContextAPI.with (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/api/context.js:60:46)
+    at NoopTracer.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/trace/NoopTracer.js:65:31)
+    at ProxyTracer.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/trace/ProxyTracer.js:36:24)
+    at EnabledTraceUtil.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:102:28)
+    at WriteBatch.commit (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/write-batch.js:436:43)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/reference/document-reference.js:273:18
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:110:30 {
+  code: 5,
+  details: '',
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  },
+  note: 'Exception occurred in retry method that was not classified as transient'
+}
+2026-01-05T22:32:29.285Z - POST /api/reviews
+Fejl ved gemning af anmeldelse til Firestore: Error: 5 NOT_FOUND: 
+    at callErrorFromStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client.js:193:76)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:367:141)
+    at Object.onReceiveStatus (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/client.js:161:32)
+    at ServiceClientImpl.<anonymous> (/Users/andersrask/Documents/Guinness Guide/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at repeat (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/retries.js:82:25)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/retries.js:125:13
+    at OngoingCallPromise.call (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/call.js:67:27)
+    at NormalApiCaller.call (/Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/normalCalls/normalApiCaller.js:34:19)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/google-gax/build/src/createApiCall.js:112:30
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Caused by: Error
+    at _firestore._traceUtil.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/write-batch.js:438:27)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:110:30
+    at NoopContextManager.with (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/context/NoopContextManager.js:25:19)
+    at ContextAPI.with (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/api/context.js:60:46)
+    at NoopTracer.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/trace/NoopTracer.js:65:31)
+    at ProxyTracer.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@opentelemetry/api/build/src/trace/ProxyTracer.js:36:24)
+    at EnabledTraceUtil.startActiveSpan (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:102:28)
+    at WriteBatch.commit (/Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/write-batch.js:436:43)
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/reference/document-reference.js:273:18
+    at /Users/andersrask/Documents/Guinness Guide/node_modules/@google-cloud/firestore/build/src/telemetry/enabled-trace-util.js:110:30 {
+  code: 5,
+  details: '',
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  },
+  note: 'Exception occurred in retry method that was not classified as transient'
+}
+2026-01-05T22:36:07.179Z - GET /reviews.html
+2026-01-05T22:36:07.219Z - GET /style.css
+2026-01-05T22:36:07.221Z - GET /app.js
+2026-01-05T22:36:07.224Z - GET /images/guinness%20guide.png
+2026-01-05T22:36:07.235Z - GET /api/reviews
+2026-01-05T22:36:25.994Z - POST /api/reviews
+2026-01-05T22:36:26.532Z - GET /api/reviews
+2026-01-05T22:36:26.817Z - GET /uploads/1767652585998-923823951.png
