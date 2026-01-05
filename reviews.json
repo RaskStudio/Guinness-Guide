@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1767649354058,
+    "date": "2026-01-05",
+    "name": "sfsfd",
+    "ratingGuinness": "5",
+    "ratingPour": "3",
+    "ratingService": "2",
+    "smoking": true,
+    "price": "122",
+    "comment": "sdsd",
+    "imagePath": "/uploads/1767649354055-703671717.png"
+  },
+  {
+    "id": 1767649957027,
+    "date": "2026-01-05",
+    "name": "fsfasdasd",
+    "ratingGuinness": "1",
+    "ratingPour": "1",
+    "ratingService": "1",
+    "smoking": false,
+    "price": "20020220",
+    "comment": "dfasda",
+    "imagePath": "/uploads/1767649957011-548417236.png"
+  }
+]

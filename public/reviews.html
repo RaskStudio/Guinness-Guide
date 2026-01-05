@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Logbog - Guinness Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <img src="images/guinness guide.png" alt="Guinness Guide" class="logo-img">
+    </header>
+
+    <div class="container" style="padding-top: 10px;">
+        <div id="reviewsList">
+            <p style="text-align: center; color: #666; margin-top: 50px;">Henter logbog...</p>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button id="fabBtn" class="fab">+</button>
+
+    <!-- Modal Form -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <button id="closeModal" class="btn-close">Luk</button>
+            <h2 id="modalTitle" style="color: var(--guinness-gold); margin-top: 0; margin-bottom: 20px;">Ny Guinness</h2>
+            
+            <form id="reviewForm">
+                <input type="hidden" id="reviewId">
+                <div class="form-group">
+                    <label for="name">Stedets navn</label>
+                    <input type="text" id="name" name="name" required placeholder="F.eks. Waxies">
+                </div>
+                
+                <!-- Ratings -->
+                <div class="rating-group">
+                    <div class="slider-container">
+                        <label>Guinnessen <span id="val-guinness" class="slider-val">5</span>/5</label>
+                        <input type="range" id="ratingGuinness" name="ratingGuinness" min="1" max="5" value="5">
+                    </div>
+
+                    <div class="slider-container">
+                        <label>Ophældning <span id="val-pour" class="slider-val">3</span>/5</label>
+                        <input type="range" id="ratingPour" name="ratingPour" min="1" max="5" value="3">
+                    </div>
+
+                    <div class="slider-container">
+                        <label>Service <span id="val-service" class="slider-val">3</span>/5</label>
+                        <input type="range" id="ratingService" name="ratingService" min="1" max="5" value="3">
+                    </div>
+                </div>
+
+                <!-- Rygning -->
+                <div class="form-group checkbox-wrapper">
+                    <label for="smoking" style="margin:0; flex-grow:1; cursor:pointer;">Må man ryge? 🚬</label>
+                    <div class="toggle-container">
+                        <span id="smoking-status" style="margin-right: 10px; font-size: 0.9rem; color: #888;">Nej</span>
+                        <label class="switch">
+                            <input type="checkbox" id="smoking" name="smoking">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pris -->
+                <div class="form-group">
+                    <label for="price">Pris pr. Pint (kr.)</label>
+                    <input type="number" id="price" name="price" placeholder="F.eks. 65" min="0" required>
+                </div>
+
+                <!-- Billede -->
+                <div class="file-upload-wrapper form-group">
+                    <span class="file-label-text">Split the G bevis 📸</span>
+                    <input type="file" id="image" name="image" accept="image/*" class="hidden-file-input">
+                    <label for="image" class="custom-file-btn">Tilføj billede</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Noter</label>
+                    <textarea id="comment" name="comment" rows="2" placeholder="Stemning, pris osv."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Gem i Logbog</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>Hjem</span>
+        </a>
+        <a href="reviews.html" class="nav-item active">
+            <span class="nav-icon">📋</span>
+            <span>Logbog</span>
+        </a>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>

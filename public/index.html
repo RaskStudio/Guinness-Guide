@@ -2,26 +2,45 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Guinness Guide</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <header class="app-header">
+        <img src="images/guinness guide.png" alt="Guinness Guide" class="logo-img">
+    </header>
+
     <div class="container">
-        <header>
-            <h1>Velkommen til Guinness Guide</h1>
-            <p>Din ultimative guide til den sorte guld!</p>
-        </header>
-        <main>
-            <section class="intro">
-                <h2>Hej Venner!</h2>
-                <p>Her kommer vi til at samle alt det bedste om Guinness. Stay tuned!</p>
-                <img src="https://images.squarespace-cdn.com/content/v1/5876279bbebafb82a7c81c00/1617043580504-VIPP3ZSKF8I7WMY3CRFK/DSCN5229.JPG?format=2500w" alt="En lækker pint Guinness" style="max-width: 100%; border-radius: 8px; margin-top: 20px;">
-            </section>
-        </main>
-        <footer>
-            <p>&copy; 2026 Guinness Guide</p>
-        </footer>
+        <!-- Hero Card -->
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Guinness_pint.jpg" alt="Guinness">
+            <h2>Jagten på det sorte guld</h2>
+            <p style="color: #aaa; line-height: 1.5;">Velkommen til din personlige logbog over Aarhus' bedste pints. Skål!</p>
+        </div>
+
+        <h3>Dagens Anbefaling</h3>
+        <div class="card">
+            <div class="review-header">
+                <h3>Tir Na Nóg</h3>
+                <span class="rating-badge">5/5 🍺</span>
+            </div>
+            <p style="color: #ccc;">Kan man sige Guinness uden at sige Tir Na Nóg? Nej vel.</p>
+        </div>
     </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Hjem</span>
+        </a>
+        <a href="reviews.html" class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>Logbog</span>
+        </a>
+    </nav>
+
 </body>
 </html>
