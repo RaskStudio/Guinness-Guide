@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('closeModal');
     const modalTitle = document.getElementById('modalTitle');
     const reviewIdInput = document.getElementById('reviewId');
+    const fileInput = document.getElementById('image');
+    const fileChosenText = document.getElementById('file-chosen');
+    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
     // Global variabel
     let currentReviews = [];
@@ -35,6 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
             smokingStatus.textContent = smokingInput.checked ? 'Ja' : 'Nej';
         });
     }
+    
+    // Fil-input feedback
+    if(fileInput && fileChosenText) {
+        fileInput.addEventListener('change', () => {
+            if(fileInput.files.length > 0) {
+                fileChosenText.textContent = 'Valgt: ' + fileInput.files[0].name;
+                fileChosenText.style.color = '#c9a050'; // Guld farve for bekræftelse
+            } else {
+                fileChosenText.textContent = '';
+            }
+        });
+    }
 
     // Load data
     fetchReviews();
@@ -43,22 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if(fabBtn) {
         fabBtn.addEventListener('click', () => {
             resetForm();
-            modal.classList.add('active');
-            document.getElementById('name').focus();
+            openModal();
+            // document.getElementById('name').focus(); // Fjernet for at undgå tastatur på mobil
         });
     }
 
     // Close Modal
     if(closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
+        closeBtn.addEventListener('click', closeModal);
     }
 
     window.addEventListener('click', (e) => {
         // Close Modal
         if (e.target === modal) {
-            modal.classList.remove('active');
+            closeModal();
         }
         
         // Close Dropdowns if clicking outside
@@ -68,11 +81,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+    
+    function openModal() {
+        modal.classList.add('active');
+        document.body.classList.add('no-scroll'); // Lås baggrunds-scroll
+        
+        // Scroll til toppen af modal-indholdet
+        const modalContent = document.querySelector('.modal-content');
+        if(modalContent) {
+            modalContent.scrollTop = 0;
+        }
+    }
+    
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.classList.remove('no-scroll'); // Lås op for baggrunds-scroll
+    }
 
     // Form Submit
     if(form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // UI Feedback: Start Loading
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Gemmer...';
+            submitBtn.disabled = true;
 
             const formData = new FormData();
             formData.append('name', document.getElementById('name').value);
@@ -100,13 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     resetForm();
-                    modal.classList.remove('active');
+                    closeModal();
                     fetchReviews(); 
                 } else {
-                    alert('Fejl under gemning');
+                    alert('Fejl under gemning. Prøv igen.');
                 }
             } catch (error) {
                 console.error('Error:', error);
+                alert('Der skete en netværksfejl.');
+            } finally {
+                // UI Feedback: Stop Loading
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
             }
         });
     }
@@ -119,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('val-pour').textContent = '3';
         document.getElementById('val-service').textContent = '3';
         if(smokingStatus) smokingStatus.textContent = 'Nej';
+        if(fileChosenText) fileChosenText.textContent = ''; // Nulstil filtekst
     }
 
     async function fetchReviews() {
@@ -154,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Beregn samlet score
             const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3).toFixed(1);
-
 
             card.innerHTML = `
                 <button class="menu-dots" onclick="toggleMenu(event, '${review.id}')">⋮</button>
@@ -243,7 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('val-service').textContent = review.ratingService;
 
         modalTitle.textContent = 'Rediger Guinness';
-        modal.classList.add('active');
+        
+        openModal(); // Brug den nye funktion
     };
 
     window.deleteReview = async (id) => {

@@ -22,6 +22,10 @@ body {
     padding-bottom: calc(var(--nav-height) + 20px);
 }
 
+body.no-scroll {
+    overflow: hidden; /* Låser baggrunden når modal er åben */
+}
+
 .app-header {
     padding: 15px 20px;
     background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%);
@@ -145,13 +149,61 @@ body {
     margin-top: 12px;
 }
 
+/* Top 3 List Styling */
+.top-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.top-item {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.top-rank {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    width: 30px;
+    text-align: center;
+}
+
+.top-info {
+    flex-grow: 1;
+}
+
+.top-name {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.top-price {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.top-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--guinness-gold);
+}
+
+
 /* 3-Dots Menu */
 .menu-dots {
     background: none;
     border: none;
     color: var(--text-muted);
     font-size: 1.5rem;
-    padding: 0 10px;
+    padding: 10px; /* Større touch area */
+    margin: -10px; /* Kompenser for padding */
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -231,7 +283,7 @@ body {
 
 .fab:active { transform: scale(0.95); }
 
-/* Modal */
+/* Modal - Forbedret Scroll */
 .modal {
     display: none;
     position: fixed;
@@ -241,8 +293,10 @@ body {
     height: 100%;
     background-color: rgba(0,0,0,0.8);
     z-index: 200;
+    
+    /* Centrer og tillad scroll */
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-end; /* Mobile style (bund) */
 }
 
 .modal.active { display: flex; }
@@ -254,9 +308,13 @@ body {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     padding: 24px;
+    
+    /* Vigtigt for scroll */
+    max-height: 85vh; /* Lad ikke modal fylde hele skærmen */
+    overflow-y: auto; /* Scroll indholdet */
+    -webkit-overflow-scrolling: touch; /* Smooth scroll på iOS */
+    
     animation: slideUp 0.3s ease-out;
-    max-height: 90vh;
-    overflow-y: auto;
 }
 
 @keyframes slideUp {
@@ -290,7 +348,7 @@ body {
 }
 
 .hidden-file-input {
-    display: none; /* Skjul det rigtige input helt */
+    display: none; 
 }
 
 .custom-file-btn {
@@ -442,6 +500,14 @@ input[type="range"] {
     font-weight: bold;
     font-size: 1rem;
     margin-top: 10px;
+    cursor: pointer; /* Vigtig for touch */
+}
+
+/* Loading state styling */
+.btn-primary:disabled {
+    background-color: #555;
+    color: #aaa;
+    cursor: not-allowed;
 }
 
 .btn-close {
@@ -450,7 +516,8 @@ input[type="range"] {
     color: var(--text-muted);
     font-size: 1rem;
     float: right;
-    padding: 5px;
+    padding: 10px; /* Mere touch-venlig */
+    margin: -10px -5px 0 0;
 }
 
 /* Nav */
