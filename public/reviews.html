@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Logbog - Guinness Guide</title>
     <link rel="stylesheet" href="style.css">
+    <!-- 3D Scripts -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
@@ -13,6 +16,11 @@
     </header>
 
     <div class="container" style="padding-top: 10px;">
+        <!-- Search Field -->
+        <div class="search-container" style="margin-bottom: 15px;">
+            <input type="text" id="searchInput" placeholder="Søg efter sted..." style="background-color: #2a2a2a; border: 1px solid rgba(255,255,255,0.1);">
+        </div>
+
         <div id="reviewsList">
             <p style="text-align: center; color: #666; margin-top: 50px;">Henter logbog...</p>
         </div>
@@ -37,18 +45,18 @@
                 <!-- Ratings -->
                 <div class="rating-group">
                     <div class="slider-container">
-                        <label>Guinnessen <span id="val-guinness" class="slider-val">5</span>/5</label>
-                        <input type="range" id="ratingGuinness" name="ratingGuinness" min="1" max="5" value="5">
+                        <label>Guinnessen <span id="val-guinness" class="slider-val">10</span>/10</label>
+                        <input type="range" id="ratingGuinness" name="ratingGuinness" min="1" max="10" value="10">
                     </div>
 
                     <div class="slider-container">
-                        <label>Ophældning <span id="val-pour" class="slider-val">3</span>/5</label>
-                        <input type="range" id="ratingPour" name="ratingPour" min="1" max="5" value="3">
+                        <label>Ophældning <span id="val-pour" class="slider-val">7</span>/10</label>
+                        <input type="range" id="ratingPour" name="ratingPour" min="1" max="10" value="7">
                     </div>
 
                     <div class="slider-container">
-                        <label>Service <span id="val-service" class="slider-val">3</span>/5</label>
-                        <input type="range" id="ratingService" name="ratingService" min="1" max="5" value="3">
+                        <label>Service <span id="val-service" class="slider-val">7</span>/10</label>
+                        <input type="range" id="ratingService" name="ratingService" min="1" max="10" value="7">
                     </div>
                 </div>
 
@@ -94,6 +102,21 @@
             <span class="nav-icon">🏠</span>
             <span>Hjem</span>
         </a>
+
+        <!-- 3D Spinner -->
+        <div class="nav-item-3d" id="nav3d">
+            <model-viewer 
+                src="images/92653f1b-07c5-42b1-a1b2-4a68ca0ff034.glb" 
+                alt="3D Guinness" 
+                auto-rotate 
+                auto-rotate-delay="0"
+                rotation-per-second="30deg"
+                disable-zoom
+                interaction-prompt="none"
+                style="width: 100%; height: 100%; pointer-events: none;">
+            </model-viewer>
+        </div>
+
         <a href="reviews.html" class="nav-item active">
             <span class="nav-icon">📋</span>
             <span>Logbog</span>

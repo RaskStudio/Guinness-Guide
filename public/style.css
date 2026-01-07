@@ -105,7 +105,7 @@ body.no-scroll {
 }
 
 .info-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     margin-bottom: 8px;
@@ -148,6 +148,41 @@ body.no-scroll {
     display: block;
     margin-top: 12px;
 }
+
+/* Homepage Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.stat-box {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.stat-box-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.stat-box-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-box-sub {
+    font-size: 0.7rem;
+    color: #666;
+    margin-top: 5px;
+}
+
 
 /* Top 3 List Styling */
 .top-list {
@@ -548,3 +583,22 @@ input[type="range"] {
 
 .nav-item.active { color: var(--guinness-gold); }
 .nav-icon { font-size: 1.2rem; margin-bottom: 4px; display: block; }
+
+/* 3D Spinner Nav Item */
+.nav-item-3d {
+    width: 80px;
+    height: 80px;
+    background-color: #1a1a1a;
+    border-radius: 50%;
+    border: 4px solid var(--guinness-gold);
+    margin-top: -40px; /* Flyt op */
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    overflow: hidden; /* Hold modellen inde i cirklen */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.nav-item-3d:active {
+    transform: scale(0.95);
+}

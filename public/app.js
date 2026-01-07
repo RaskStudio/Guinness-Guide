@@ -12,6 +12,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileChosenText = document.getElementById('file-chosen');
     const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
+    // 3D Nav Interaction
+    const nav3d = document.getElementById('nav3d');
+    if (nav3d) {
+        nav3d.addEventListener('click', () => {
+            if (window.confetti) {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.8 },
+                    colors: ['#000000', '#ffffff', '#c9a050']
+                });
+            }
+        });
+    }
+
     // Global variabel
     let currentReviews = [];
 
@@ -53,6 +68,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load data
     fetchReviews();
+
+    // Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredReviews = currentReviews.filter(review => 
+                review.name.toLowerCase().includes(searchTerm)
+            );
+            renderReviews(filteredReviews);
+        });
+    }
 
     // Open Modal (New Review)
     if(fabBtn) {
@@ -154,9 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
         form.reset();
         reviewIdInput.value = '';
         modalTitle.textContent = 'Ny Guinness';
-        document.getElementById('val-guinness').textContent = '5';
-        document.getElementById('val-pour').textContent = '3';
-        document.getElementById('val-service').textContent = '3';
+        document.getElementById('val-guinness').textContent = '10';
+        document.getElementById('ratingGuinness').value = '10';
+        document.getElementById('val-pour').textContent = '7';
+        document.getElementById('ratingPour').value = '7';
+        document.getElementById('val-service').textContent = '7';
+        document.getElementById('ratingService').value = '7';
         if(smokingStatus) smokingStatus.textContent = 'Nej';
         if(fileChosenText) fileChosenText.textContent = ''; // Nulstil filtekst
     }
@@ -181,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        reviews.reverse().forEach(review => {
+        reviews.forEach(review => {
             const card = document.createElement('div');
             card.className = 'card';
             
@@ -193,7 +223,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const priceDisplay = review.price ? `${review.price},-` : '?';
 
             // Beregn samlet score
-            const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3).toFixed(1);
+            const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3);
+            const formattedScore = totalScore.toFixed(1);
+
+            // Beregn Value Index (Score ift. Pris)
+            // Nu ud fra 10-skala: (Score / Pris) * 50 giver ca. samme skala som før
+            const valueIndex = review.price ? ((totalScore / review.price) * 50).toFixed(0) : '?';
 
             card.innerHTML = `
                 <button class="menu-dots" onclick="toggleMenu(event, '${review.id}')">⋮</button>
@@ -212,15 +247,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="stats-row ratings-row">
                         <div class="stat-item">
                             <span class="stat-label">Guinness</span>
-                            <span class="stat-val">${review.ratingGuinness}/5</span>
+                            <span class="stat-val">${review.ratingGuinness}/10</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Ophældning</span>
-                            <span class="stat-val">${review.ratingPour}/5</span>
+                            <span class="stat-val">${review.ratingPour}/10</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Service</span>
-                            <span class="stat-val">${review.ratingService}/5</span>
+                            <span class="stat-val">${review.ratingService}/10</span>
                         </div>
                     </div>
 
@@ -233,12 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="stat-label">Pris</span>
                             <span class="stat-val">${priceDisplay}</span>
                         </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Værdi-Index</span>
+                            <span class="stat-val" style="color: var(--guinness-foam);">${valueIndex}</span>
+                        </div>
                     </div>
                     
                     <div class="stats-row total-score-row">
                         <div class="stat-item total-score">
                             <span class="stat-label">Samlet Score</span>
-                            <span class="stat-val">${totalScore}/5</span>
+                            <span class="stat-val">${formattedScore}/10</span>
                         </div>
                     </div>
                 </div>
