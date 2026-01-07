@@ -101,6 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
         
+        // Close Info Modal
+        const infoModal = document.getElementById('infoModal');
+        if (e.target === infoModal) {
+            infoModal.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+
         // Close Dropdowns if clicking outside
         if (!e.target.matches('.menu-dots')) {
             document.querySelectorAll('.menu-dropdown').forEach(d => {
@@ -108,6 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Info Modal Close Button
+    const closeInfoBtn = document.getElementById('closeInfoModal');
+    if(closeInfoBtn) {
+        closeInfoBtn.addEventListener('click', () => {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    }
     
     function openModal() {
         modal.classList.add('active');
@@ -212,37 +228,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         reviews.forEach(review => {
-            const card = document.createElement('div');
-            card.className = 'card';
+            const item = document.createElement('div');
+            item.className = 'review-item-compact';
             
+            // Onclick handler for at åbne detaljer
+            item.onclick = (e) => {
+                // Undgå at åbne modal hvis man klikker på menuen eller knapperne
+                if (!e.target.closest('.menu-dots') && !e.target.closest('.menu-dropdown')) {
+                    openDetailModal(review);
+                }
+            };
+
             const imageHtml = review.imagePath 
-                ? `<img src="${review.imagePath}" alt="Split the G" loading="lazy">` 
-                : '';
+                ? `<img src="${review.imagePath}" class="compact-img" alt="${review.name}">`
+                : `<img src="images/guinness emoji.png" class="compact-img" style="object-fit: contain; padding: 5px; background: transparent;" alt="Guinness">`;
 
-            const smokingIcon = review.smoking ? '🚬 Tilladt' : '🚭 Forbudt';
             const priceDisplay = review.price ? `${review.price},-` : '?';
-
+            const smokingIcon = review.smoking ? '🚬' : '🚭';
+            
             // Beregn samlet score
-            const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3);
-            const formattedScore = totalScore.toFixed(1);
+            const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3).toFixed(1);
 
-            // Beregn Value Index (Score ift. Pris)
-            // Nu ud fra 10-skala: (Score / Pris) * 50 giver ca. samme skala som før
-            const valueIndex = review.price ? ((totalScore / review.price) * 50).toFixed(0) : '?';
+            item.innerHTML = `
+                ${imageHtml}
+                
+                <div class="compact-info">
+                    <div class="compact-name">${review.name}</div>
+                    <div class="compact-details">${priceDisplay} • ${smokingIcon}</div>
+                </div>
 
-            card.innerHTML = `
+                <div class="compact-score">${totalScore}/10</div>
+
                 <button class="menu-dots" onclick="toggleMenu(event, '${review.id}')">⋮</button>
                 <div id="menu-${review.id}" class="menu-dropdown">
                     <button class="menu-item" onclick="openEditModal('${review.id}')">Rediger</button>
                     <button class="menu-item delete" onclick="deleteReview('${review.id}')">Slet</button>
                 </div>
+            `;
+            
+            reviewsList.appendChild(item);
+        });
+    }
 
-                <div class="review-header">
-                    <h3>${review.name}</h3>
-                </div>
+    window.openDetailModal = (review) => {
+        const modal = document.getElementById('infoModal');
+        const content = document.getElementById('infoContent');
+        const modalTitle = document.getElementById('infoTitle');
+        
+        if(!modal || !content) return;
+    
+        modalTitle.textContent = review.name;
+    
+        const imageHtml = review.imagePath 
+            ? `<img src="${review.imagePath}" alt="${review.name}" loading="lazy">` 
+            : '';
+    
+        const smokingIcon = review.smoking ? '🚬 Tilladt' : '🚭 Forbudt';
+        const priceDisplay = review.price ? `${review.price},-` : '?';
+        const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3).toFixed(1);
+        
+        // Beregn Value Index
+        const valueIndex = review.price ? ((((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3) / review.price) * 50).toFixed(0) : '?';
+    
+        // Brug den flotte kort-struktur til detalje-visningen
+        content.innerHTML = `
+            <div class="card" style="margin-bottom: 0; box-shadow: none; border: none; background: transparent; padding: 0;">
                 
                 ${imageHtml}
-
+    
                 <div class="stats-container">
                     <div class="stats-row ratings-row">
                         <div class="stat-item">
@@ -258,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="stat-val">${review.ratingService}/10</span>
                         </div>
                     </div>
-
+    
                     <div class="stats-row info-row">
                         <div class="stat-item">
                             <span class="stat-label">Rygning</span>
@@ -277,18 +330,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="stats-row total-score-row">
                         <div class="stat-item total-score">
                             <span class="stat-label">Samlet Score</span>
-                            <span class="stat-val">${formattedScore}/10</span>
+                            <span class="stat-val">${totalScore}/10</span>
                         </div>
                     </div>
                 </div>
-
+    
                 <p style="color: #ccc; margin-top: 12px; font-style: italic;">"${review.comment}"</p>
                 <span class="review-date">${review.date}</span>
-            `;
-            
-            reviewsList.appendChild(card);
-        });
-    }
+            </div>
+        `;
+    
+        modal.classList.add('active');
+        document.body.classList.add('no-scroll');
+        
+        // Luk ved klik udenfor (Dette håndteres også af den globale listener, men ekstra sikkerhed)
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        };
+    };
 
     window.toggleMenu = (event, id) => {
         event.stopPropagation();

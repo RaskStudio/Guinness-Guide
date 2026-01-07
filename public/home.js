@@ -66,6 +66,10 @@ function renderTop3(reviews, container) {
     reviews.forEach((review, index) => {
         const item = document.createElement('div');
         item.className = 'top-item';
+        item.style.cursor = 'pointer'; // Vis at det kan klikkes
+        
+        // Gør elementet klikbart
+        item.onclick = () => showStatDetails(review, review.name);
         
         // Medalje
         const medal = medals[index] || (index + 1) + '.';
