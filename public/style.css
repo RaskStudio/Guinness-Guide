@@ -670,6 +670,19 @@ input[type="range"] {
     transition: transform 0.2s;
 }
 
-.nav-item-3d:active {
-    transform: scale(0.95);
+/* Accordion Animation */
+.accordion-content {
+    display: none;
+    background-color: rgba(255,255,255,0.02);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.accordion-content.open {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.accordion-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
 }

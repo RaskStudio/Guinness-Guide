@@ -4,13 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Modal & UI Elements
     const modal = document.getElementById('addModal');
+    const optionsModal = document.getElementById('optionsModal');
     const fabBtn = document.getElementById('fabBtn');
     const closeBtn = document.getElementById('closeModal');
+    const closeInfoBtn = document.getElementById('closeInfoModal');
     const modalTitle = document.getElementById('modalTitle');
     const reviewIdInput = document.getElementById('reviewId');
     const fileInput = document.getElementById('image');
     const fileChosenText = document.getElementById('file-chosen');
     const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+
+    // Options Modal Buttons
+    const btnEdit = document.getElementById('btnEdit');
+    const btnDelete = document.getElementById('btnDelete');
+    const btnCancelOptions = document.getElementById('btnCancelOptions');
+    const optionsReviewId = document.getElementById('optionsReviewId');
 
     // 3D Nav Interaction
     const nav3d = document.getElementById('nav3d');
@@ -30,10 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global variabel
     let currentReviews = [];
 
-    // Sliders & Values setup
-    setupSlider('ratingGuinness', 'val-guinness');
-    setupSlider('ratingPour', 'val-pour');
-    setupSlider('ratingService', 'val-service');
+    // --- Helper Functions (Hoisted) ---
 
     function setupSlider(inputId, displayId) {
         const input = document.getElementById(inputId);
@@ -45,91 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Toggle Smoking Text
-    const smokingInput = document.getElementById('smoking');
-    const smokingStatus = document.getElementById('smoking-status');
-    if(smokingInput && smokingStatus) {
-        smokingInput.addEventListener('change', () => {
-            smokingStatus.textContent = smokingInput.checked ? 'Ja' : 'Nej';
-        });
-    }
-    
-    // Fil-input feedback
-    if(fileInput && fileChosenText) {
-        fileInput.addEventListener('change', () => {
-            if(fileInput.files.length > 0) {
-                fileChosenText.textContent = 'Valgt: ' + fileInput.files[0].name;
-                fileChosenText.style.color = '#c9a050'; // Guld farve for bekræftelse
-            } else {
-                fileChosenText.textContent = '';
-            }
-        });
-    }
-
-    // Load data
-    fetchReviews();
-
-    // Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredReviews = currentReviews.filter(review => 
-                review.name.toLowerCase().includes(searchTerm)
-            );
-            renderReviews(filteredReviews);
-        });
-    }
-
-    // Open Modal (New Review)
-    if(fabBtn) {
-        fabBtn.addEventListener('click', () => {
-            resetForm();
-            openModal();
-            // document.getElementById('name').focus(); // Fjernet for at undgå tastatur på mobil
-        });
-    }
-
-    // Close Modal
-    if(closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-
-    window.addEventListener('click', (e) => {
-        // Close Modal
-        if (e.target === modal) {
-            closeModal();
-        }
-        
-        // Close Info Modal
-        const infoModal = document.getElementById('infoModal');
-        if (e.target === infoModal) {
-            infoModal.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        }
-
-        // Close Dropdowns if clicking outside
-        if (!e.target.matches('.menu-dots')) {
-            document.querySelectorAll('.menu-dropdown').forEach(d => {
-                d.classList.remove('show');
-            });
-        }
-    });
-
-    // Info Modal Close Button
-    const closeInfoBtn = document.getElementById('closeInfoModal');
-    if(closeInfoBtn) {
-        closeInfoBtn.addEventListener('click', () => {
-            document.getElementById('infoModal').classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        });
-    }
-    
     function openModal() {
         modal.classList.add('active');
-        document.body.classList.add('no-scroll'); // Lås baggrunds-scroll
-        
-        // Scroll til toppen af modal-indholdet
+        document.body.classList.add('no-scroll'); 
         const modalContent = document.querySelector('.modal-content');
         if(modalContent) {
             modalContent.scrollTop = 0;
@@ -138,139 +61,46 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function closeModal() {
         modal.classList.remove('active');
-        document.body.classList.remove('no-scroll'); // Lås op for baggrunds-scroll
+        document.body.classList.remove('no-scroll'); 
     }
 
-    // Form Submit
-    if(form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // UI Feedback: Start Loading
-            const originalBtnText = submitBtn.textContent;
-            submitBtn.textContent = 'Gemmer...';
-            submitBtn.disabled = true;
-
-            const formData = new FormData();
-            formData.append('name', document.getElementById('name').value);
-            formData.append('ratingGuinness', document.getElementById('ratingGuinness').value);
-            formData.append('ratingPour', document.getElementById('ratingPour').value);
-            formData.append('ratingService', document.getElementById('ratingService').value);
-            formData.append('smoking', document.getElementById('smoking').checked);
-            formData.append('price', document.getElementById('price').value);
-            formData.append('comment', document.getElementById('comment').value);
-            
-            const imageFile = document.getElementById('image').files[0];
-            if (imageFile) {
-                formData.append('image', imageFile);
-            }
-
-            const id = reviewIdInput.value;
-            const url = id ? `/api/reviews/${id}` : '/api/reviews';
-            const method = id ? 'PUT' : 'POST';
-
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    body: formData
-                });
-
-                if (response.ok) {
-                    resetForm();
-                    closeModal();
-                    fetchReviews(); 
-                } else {
-                    alert('Fejl under gemning. Prøv igen.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Der skete en netværksfejl.');
-            } finally {
-                // UI Feedback: Stop Loading
-                submitBtn.textContent = originalBtnText;
-                submitBtn.disabled = false;
-            }
-        });
+    function openOptionsModal(id, title) {
+        optionsReviewId.value = id;
+        document.getElementById('optionsTitle').textContent = title;
+        optionsModal.classList.add('active');
+        document.body.classList.add('no-scroll');
     }
 
-    function resetForm() {
-        form.reset();
-        reviewIdInput.value = '';
-        modalTitle.textContent = 'Ny Guinness';
-        document.getElementById('val-guinness').textContent = '10';
-        document.getElementById('ratingGuinness').value = '10';
-        document.getElementById('val-pour').textContent = '7';
-        document.getElementById('ratingPour').value = '7';
-        document.getElementById('val-service').textContent = '7';
-        document.getElementById('ratingService').value = '7';
-        if(smokingStatus) smokingStatus.textContent = 'Nej';
-        if(fileChosenText) fileChosenText.textContent = ''; // Nulstil filtekst
-    }
-
-    async function fetchReviews() {
-        try {
-            const response = await fetch('/api/reviews');
-            currentReviews = await response.json();
-            renderReviews(currentReviews);
-        } catch (error) {
-            console.error('Error fetching reviews:', error);
-            if(reviewsList) reviewsList.innerHTML = '<p style="text-align:center;">Kunne ikke hente logbog.</p>';
+    function closeOptionsModal() {
+        optionsModal.classList.remove('active');
+        // Check om infoModal stadig er åben, før vi fjerner no-scroll
+        if (!document.getElementById('infoModal').classList.contains('active')) {
+            document.body.classList.remove('no-scroll');
         }
     }
 
-    function renderReviews(reviews) {
-        if(!reviewsList) return;
-        reviewsList.innerHTML = '';
-
-        if(reviews.length === 0) {
-            reviewsList.innerHTML = '<p style="text-align:center; color:#666; margin-top:40px;">Ingen anmeldelser endnu.</p>';
-            return;
-        }
+    // Accordion Toggle Funktion
+    function toggleAccordion(id) {
+        const content = document.getElementById(`sublist-${id}`);
+        const arrow = document.getElementById(`arrow-${id}`);
         
-        reviews.forEach(review => {
-            const item = document.createElement('div');
-            item.className = 'review-item-compact';
+        if (content) {
+            content.classList.toggle('open');
             
-            // Onclick handler for at åbne detaljer
-            item.onclick = (e) => {
-                // Undgå at åbne modal hvis man klikker på menuen eller knapperne
-                if (!e.target.closest('.menu-dots') && !e.target.closest('.menu-dropdown')) {
-                    openDetailModal(review);
-                }
-            };
-
-            const imageHtml = review.imagePath 
-                ? `<img src="${review.imagePath}" class="compact-img" alt="${review.name}">`
-                : `<img src="images/guinness emoji.png" class="compact-img" style="object-fit: contain; padding: 5px; background: transparent;" alt="Guinness">`;
-
-            const priceDisplay = review.price ? `${review.price},-` : '?';
-            const smokingIcon = review.smoking ? '🚬' : '🚭';
-            
-            // Beregn samlet score
-            const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3).toFixed(1);
-
-            item.innerHTML = `
-                ${imageHtml}
-                
-                <div class="compact-info">
-                    <div class="compact-name">${review.name}</div>
-                    <div class="compact-details">${priceDisplay} • ${smokingIcon}</div>
-                </div>
-
-                <div class="compact-score">${totalScore}/10</div>
-
-                <button class="menu-dots" onclick="toggleMenu(event, '${review.id}')">⋮</button>
-                <div id="menu-${review.id}" class="menu-dropdown">
-                    <button class="menu-item" onclick="openEditModal('${review.id}')">Rediger</button>
-                    <button class="menu-item delete" onclick="deleteReview('${review.id}')">Slet</button>
-                </div>
-            `;
-            
-            reviewsList.appendChild(item);
-        });
+            if (content.classList.contains('open')) {
+                if(arrow) arrow.style.transform = 'rotate(180deg)';
+            } else {
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
+            }
+        }
     }
 
-    window.openDetailModal = (review) => {
+    function openDetailModalFromId(id) {
+        const review = currentReviews.find(r => r.id == id);
+        if(review) openDetailModal(review);
+    }
+
+    function openDetailModal(review) {
         const modal = document.getElementById('infoModal');
         const content = document.getElementById('infoContent');
         const modalTitle = document.getElementById('infoTitle');
@@ -287,15 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceDisplay = review.price ? `${review.price},-` : '?';
         const totalScore = ((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3).toFixed(1);
         
-        // Beregn Value Index
         const valueIndex = review.price ? ((((parseInt(review.ratingGuinness) + parseInt(review.ratingPour) + parseInt(review.ratingService)) / 3) / review.price) * 50).toFixed(0) : '?';
     
-        // Brug den flotte kort-struktur til detalje-visningen
         content.innerHTML = `
-            <div class="card" style="margin-bottom: 0; box-shadow: none; border: none; background: transparent; padding: 0;">
+            <div class="card" style="margin-bottom: 0; box-shadow: none; border: none; background: transparent; padding: 0; position: relative;">
                 
+                <!-- Indstillinger knap -->
+                <button id="detailOptionsBtn-${review.id}" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 10;">⋮</button>
+
                 ${imageHtml}
-    
                 <div class="stats-container">
                     <div class="stats-row ratings-row">
                         <div class="stat-item">
@@ -311,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="stat-val">${review.ratingService}/10</span>
                         </div>
                     </div>
-    
                     <div class="stats-row info-row">
                         <div class="stat-item">
                             <span class="stat-label">Rygning</span>
@@ -326,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="stat-val" style="color: var(--guinness-foam);">${valueIndex}</span>
                         </div>
                     </div>
-                    
                     <div class="stats-row total-score-row">
                         <div class="stat-item total-score">
                             <span class="stat-label">Samlet Score</span>
@@ -334,36 +162,34 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </div>
-    
                 <p style="color: #ccc; margin-top: 12px; font-style: italic;">"${review.comment}"</p>
                 <span class="review-date">${review.date}</span>
             </div>
         `;
+        
+        // Bind click event til options knappen
+        setTimeout(() => {
+            const optsBtn = document.getElementById(`detailOptionsBtn-${review.id}`);
+            if(optsBtn) {
+                optsBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    openOptionsModal(review.id, review.name);
+                };
+            }
+        }, 0);
     
         modal.classList.add('active');
         document.body.classList.add('no-scroll');
         
-        // Luk ved klik udenfor (Dette håndteres også af den globale listener, men ekstra sikkerhed)
         modal.onclick = (e) => {
             if (e.target === modal) {
                 modal.classList.remove('active');
                 document.body.classList.remove('no-scroll');
             }
         };
-    };
+    }
 
-    window.toggleMenu = (event, id) => {
-        event.stopPropagation();
-        
-        document.querySelectorAll('.menu-dropdown').forEach(d => {
-            if(d.id !== `menu-${id}`) d.classList.remove('show');
-        });
-
-        const menu = document.getElementById(`menu-${id}`);
-        if(menu) menu.classList.toggle('show');
-    };
-
-    window.openEditModal = (id) => {
+    function openEditModal(id) {
         const review = currentReviews.find(r => r.id == id);
         if(!review) return;
 
@@ -384,10 +210,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modalTitle.textContent = 'Rediger Guinness';
         
-        openModal(); // Brug den nye funktion
+        openModal(); 
     };
 
-    window.deleteReview = async (id) => {
+    async function deleteReview(id) {
         if(!confirm('Slet denne anmeldelse?')) return;
 
         try {
@@ -400,5 +226,247 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch(e) {
             console.error(e);
         }
-    };
+    }
+
+    function resetForm() {
+        form.reset();
+        reviewIdInput.value = '';
+        modalTitle.textContent = 'Ny Guinness';
+        document.getElementById('val-guinness').textContent = '10';
+        document.getElementById('ratingGuinness').value = '10';
+        document.getElementById('val-pour').textContent = '7';
+        document.getElementById('ratingPour').value = '7';
+        document.getElementById('val-service').textContent = '7';
+        document.getElementById('ratingService').value = '7';
+        if(smokingStatus) smokingStatus.textContent = 'Nej';
+        if(fileChosenText) fileChosenText.textContent = ''; 
+    }
+
+    function updatePlacesDatalist(reviews) {
+        const dataList = document.getElementById('placesList');
+        if (!dataList || !reviews) return;
+        
+        try {
+            const uniqueNames = [...new Set(reviews.filter(r => r && r.name).map(r => r.name))];
+            uniqueNames.sort();
+            dataList.innerHTML = uniqueNames.map(name => `<option value="${name}">`).join('');
+        } catch (e) {
+            console.warn("Fejl i autocomplete:", e);
+        }
+    }
+
+    function renderReviews(reviews) {
+        if(!reviewsList) return;
+        reviewsList.innerHTML = '';
+
+        if(reviews.length === 0) {
+            reviewsList.innerHTML = '<p style="text-align:center; color:#666; margin-top:40px;">Ingen anmeldelser endnu.</p>';
+            return;
+        }
+
+        const groupedReviews = {};
+        reviews.forEach(review => {
+            const name = review.name.trim(); 
+            const key = name.toLowerCase();
+            
+            if (!groupedReviews[key]) {
+                groupedReviews[key] = {
+                    name: name,
+                    visits: []
+                };
+            }
+            groupedReviews[key].visits.push(review);
+        });
+
+        const places = Object.values(groupedReviews).sort((a, b) => a.name.localeCompare(b.name));
+        
+        places.forEach(place => {
+            const visitCount = place.visits.length;
+            const latestVisit = place.visits.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+            
+            const wrapper = document.createElement('div');
+            wrapper.style.marginBottom = '10px';
+
+            const mainItem = document.createElement('div');
+            mainItem.className = 'review-item-compact main-item';
+            mainItem.style.marginBottom = '0';
+            mainItem.style.cursor = 'pointer'; 
+            
+            if (visitCount > 1) {
+                mainItem.style.borderRadius = '12px 12px 0 0';
+                mainItem.style.borderBottom = 'none';
+                
+                mainItem.onclick = function() {
+                    toggleAccordion(latestVisit.id);
+                };
+            } else {
+                mainItem.style.borderRadius = '12px';
+                mainItem.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                
+                mainItem.onclick = function() {
+                    openDetailModalFromId(latestVisit.id);
+                };
+            }
+
+            const imageSrc = latestVisit.imagePath 
+                ? latestVisit.imagePath 
+                : 'images/guinness emoji.png';
+            
+            const imgStyle = latestVisit.imagePath 
+                ? '' 
+                : 'object-fit: contain; padding: 5px; background: transparent;';
+
+            const avgScore = visitCount > 1 
+                ? (place.visits.reduce((sum, r) => sum + ((parseInt(r.ratingGuinness) + parseInt(r.ratingPour) + parseInt(r.ratingService)) / 3), 0) / visitCount).toFixed(1)
+                : ((parseInt(latestVisit.ratingGuinness) + parseInt(latestVisit.ratingPour) + parseInt(latestVisit.ratingService)) / 3).toFixed(1);
+
+            let detailsText = '';
+            let arrowHtml = '';
+
+            if (visitCount > 1) {
+                detailsText = `<span style="color: var(--guinness-gold);">${visitCount} besøg</span> • Senest: ${latestVisit.date}`;
+                arrowHtml = `<span class="accordion-arrow" id="arrow-${latestVisit.id}" style="margin-left:10px; color:#666; transition: transform 0.3s;">▼</span>`;
+            } else {
+                const priceDisplay = latestVisit.price ? `${latestVisit.price},-` : '?';
+                const smokingIcon = latestVisit.smoking ? '🚬' : '🚭';
+                detailsText = `${priceDisplay} • ${smokingIcon}`;
+            }
+
+            mainItem.innerHTML = `
+                <img src="${imageSrc}" class="compact-img" style="${imgStyle}" alt="${latestVisit.name}">
+                <div class="compact-info">
+                    <div class="compact-name">${place.name}</div>
+                    <div class="compact-details">${detailsText}</div>
+                </div>
+                <div class="compact-score">${avgScore}/10</div>
+                ${arrowHtml}
+            `;
+
+            wrapper.appendChild(mainItem);
+
+            if (visitCount > 1) {
+                const subList = document.createElement('div');
+                subList.id = `sublist-${latestVisit.id}`;
+                subList.className = 'accordion-content';
+                
+                const sortedVisits = place.visits.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                sortedVisits.forEach(v => {
+                    const vScore = ((parseInt(v.ratingGuinness) + parseInt(v.ratingPour) + parseInt(v.ratingService)) / 3).toFixed(1);
+                    
+                    const subItem = document.createElement('div');
+                    subItem.className = 'sub-item';
+                    subItem.style.cssText = 'display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; background: rgba(0,0,0,0.2);';
+                    
+                    subItem.onclick = (e) => {
+                        e.stopPropagation();
+                        openDetailModalFromId(v.id);
+                    };
+
+                    subItem.innerHTML = `
+                        <span style="color: #ccc; font-size: 0.9rem;">${v.date}</span>
+                        <span style="font-weight: bold; color: var(--guinness-gold); font-size: 0.9rem;">${vScore}/10</span>
+                    `;
+                    subList.appendChild(subItem);
+                });
+
+                wrapper.appendChild(subList);
+            }
+            
+            reviewsList.appendChild(wrapper);
+        });
+    }
+
+    // --- Init ---
+    
+    // Sliders & Values setup
+    setupSlider('ratingGuinness', 'val-guinness');
+    setupSlider('ratingPour', 'val-pour');
+    setupSlider('ratingService', 'val-service');
+
+    // Fil-input feedback
+    if(fileInput && fileChosenText) {
+        fileInput.addEventListener('change', () => {
+            if(fileInput.files.length > 0) {
+                fileChosenText.textContent = 'Valgt: ' + fileInput.files[0].name;
+                fileChosenText.style.color = '#c9a050'; // Guld farve for bekræftelse
+            } else {
+                fileChosenText.textContent = '';
+            }
+        });
+    }
+
+    async function fetchReviews() {
+        try {
+            const response = await fetch('/api/reviews');
+            currentReviews = await response.json();
+            updatePlacesDatalist(currentReviews);
+            renderReviews(currentReviews);
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+            if(reviewsList) reviewsList.innerHTML = '<p style="text-align:center;">Kunne ikke hente logbog.</p>';
+        }
+    }
+
+    // Event Listeners (Resten)
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredReviews = currentReviews.filter(review => 
+                review.name.toLowerCase().includes(searchTerm)
+            );
+            renderReviews(filteredReviews);
+        });
+    }
+
+    if(fabBtn) {
+        fabBtn.addEventListener('click', () => {
+            resetForm();
+            openModal();
+        });
+    }
+
+    if(closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    if(btnEdit) {
+        btnEdit.addEventListener('click', () => {
+            closeOptionsModal();
+            openEditModal(optionsReviewId.value);
+        });
+    }
+    if(btnDelete) {
+        btnDelete.addEventListener('click', () => {
+            closeOptionsModal();
+            deleteReview(optionsReviewId.value);
+        });
+    }
+    if(btnCancelOptions) {
+        btnCancelOptions.addEventListener('click', closeOptionsModal);
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+        if (e.target === document.getElementById('infoModal')) {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+        if (e.target === optionsModal) {
+            closeOptionsModal();
+        }
+    });
+
+    if(closeInfoBtn) {
+        closeInfoBtn.addEventListener('click', () => {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    }
+
+    // --- Start App ---
+    // Load data til sidst, når alle funktioner er klar
+    fetchReviews();
 });

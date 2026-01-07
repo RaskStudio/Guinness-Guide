@@ -39,7 +39,8 @@
                 <input type="hidden" id="reviewId">
                 <div class="form-group">
                     <label for="name">Stedets navn</label>
-                    <input type="text" id="name" name="name" required placeholder="F.eks. Waxies">
+                    <input type="text" id="name" name="name" list="placesList" required placeholder="F.eks. Waxies" autocomplete="off">
+                    <datalist id="placesList"></datalist>
                 </div>
                 
                 <!-- Ratings -->
@@ -102,6 +103,17 @@
             <button id="closeInfoModal" class="btn-close">Luk</button>
             <h2 id="infoTitle" style="color: var(--guinness-gold); margin-top: 0; margin-bottom: 20px;">Detaljer</h2>
             <div id="infoContent"></div>
+        </div>
+    </div>
+
+    <!-- Options Modal (Long Press Menu) -->
+    <div id="optionsModal" class="modal" style="align-items: center;">
+        <div class="modal-content" style="max-width: 300px; text-align: center; border-radius: 20px;">
+            <h3 id="optionsTitle" style="margin-top: 0; color: #fff;">Valgmuligheder</h3>
+            <input type="hidden" id="optionsReviewId">
+            <button id="btnEdit" class="btn-primary" style="margin-bottom: 10px;">Rediger ✏️</button>
+            <button id="btnDelete" class="btn-primary" style="background-color: #ff4d4d; color: #fff; margin-bottom: 10px;">Slet 🗑️</button>
+            <button id="btnCancelOptions" class="btn-primary" style="background-color: #333; color: #aaa;">Annuller</button>
         </div>
     </div>
 
