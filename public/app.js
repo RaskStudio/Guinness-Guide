@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("App starting - Version: FINAL_FIX");
     const reviewsList = document.getElementById('reviewsList');
     const form = document.getElementById('reviewForm');
     
@@ -7,12 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const optionsModal = document.getElementById('optionsModal');
     const fabBtn = document.getElementById('fabBtn');
     const closeBtn = document.getElementById('closeModal');
-    const closeInfoBtn = document.getElementById('closeInfoModal');
     const modalTitle = document.getElementById('modalTitle');
     const reviewIdInput = document.getElementById('reviewId');
     const fileInput = document.getElementById('image');
     const fileChosenText = document.getElementById('file-chosen');
     const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+    
+    // Form Elements (Scope fix)
+    const smokingInput = document.getElementById('smoking');
+    const smokingStatus = document.getElementById('smoking-status');
+    const searchInput = document.getElementById('searchInput');
+    const closeInfoBtn = document.getElementById('closeInfoModal');
 
     // Options Modal Buttons
     const btnEdit = document.getElementById('btnEdit');
@@ -38,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global variabel
     let currentReviews = [];
 
-    // --- Helper Functions (Hoisted) ---
+    // --- Helper Functions (Defineret før brug) ---
 
     function setupSlider(inputId, displayId) {
         const input = document.getElementById(inputId);
@@ -73,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeOptionsModal() {
         optionsModal.classList.remove('active');
-        // Check om infoModal stadig er åben, før vi fjerner no-scroll
         if (!document.getElementById('infoModal').classList.contains('active')) {
             document.body.classList.remove('no-scroll');
         }
@@ -86,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (content) {
             content.classList.toggle('open');
-            
             if (content.classList.contains('open')) {
                 if(arrow) arrow.style.transform = 'rotate(180deg)';
             } else {
@@ -122,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         content.innerHTML = `
             <div class="card" style="margin-bottom: 0; box-shadow: none; border: none; background: transparent; padding: 0; position: relative;">
                 
-                <!-- Indstillinger knap -->
                 <button id="detailOptionsBtn-${review.id}" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 10;">⋮</button>
 
                 ${imageHtml}
@@ -167,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         
-        // Bind click event til options knappen
         setTimeout(() => {
             const optsBtn = document.getElementById(`detailOptionsBtn-${review.id}`);
             if(optsBtn) {
@@ -377,14 +379,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Init ---
+    // --- Init Listeners & Start ---
     
-    // Sliders & Values setup
     setupSlider('ratingGuinness', 'val-guinness');
     setupSlider('ratingPour', 'val-pour');
     setupSlider('ratingService', 'val-service');
 
-    // Fil-input feedback
+    if(smokingInput && smokingStatus) {
+        smokingInput.addEventListener('change', () => {
+            smokingStatus.textContent = smokingInput.checked ? 'Ja' : 'Nej';
+        });
+    }
+
     if(fileInput && fileChosenText) {
         fileInput.addEventListener('change', () => {
             if(fileInput.files.length > 0) {
@@ -396,19 +402,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    async function fetchReviews() {
-        try {
-            const response = await fetch('/api/reviews');
-            currentReviews = await response.json();
-            updatePlacesDatalist(currentReviews);
-            renderReviews(currentReviews);
-        } catch (error) {
-            console.error('Error fetching reviews:', error);
-            if(reviewsList) reviewsList.innerHTML = '<p style="text-align:center;">Kunne ikke hente logbog.</p>';
-        }
-    }
-
-    // Event Listeners (Resten)
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
@@ -466,7 +459,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Start App ---
-    // Load data til sidst, når alle funktioner er klar
+    // Main Fetch Function Definition
+    async function fetchReviews() {
+        try {
+            console.log("Fetching reviews...");
+            const response = await fetch('/api/reviews');
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            currentReviews = await response.json();
+            console.log("Reviews fetched:", currentReviews.length);
+            
+            updatePlacesDatalist(currentReviews);
+            renderReviews(currentReviews);
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+            if(reviewsList) reviewsList.innerHTML = '<p style="text-align:center; color: red;">Der skete en fejl. Prøv at genindlæse.</p>';
+        }
+    }
+
+    // Call it at the end
     fetchReviews();
 });
