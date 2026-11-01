@@ -4,3 +4,7 @@ node_modules/
 public/uploads/*
 !public/uploads/.gitkeep
 serviceAccountKey.json
+
+# Local run data
+*.log
+reviews.json
